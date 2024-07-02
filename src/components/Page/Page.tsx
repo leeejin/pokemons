@@ -31,7 +31,8 @@ function Page({
     <main className={pageVariant({ width })}>
       <h1
         className={
-          "text-3xl font-bold text-center" + (isTitleHidden ? " hidden" : "")
+          "text-3xl font-bold text-center mb-4" +
+          (isTitleHidden ? " hidden" : "")
         }
       >
         {title}
