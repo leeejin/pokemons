@@ -15,7 +15,7 @@ async function DetailPage({ params }: DetailPageProps) {
     <div>
       <div className="bg-gray-100 rounded-t-md p-2">
         <h1 className="text-3xl">{pokemon.korean_name}</h1>
-        <h4>No.{pokemon?.id}</h4>
+        <h4>No.{pokemon.id.toString().padStart(4, "0")}</h4>
       </div>
       <div className="p-2">
         <Image
@@ -27,7 +27,7 @@ async function DetailPage({ params }: DetailPageProps) {
         />
         <h4>이름: {pokemon.korean_name}</h4>
         <h4>
-          키: {pokemon.height}m, 무게:{pokemon.weight} kg{" "}
+          키: {pokemon.height}m, 무게:{pokemon.weight} kg
         </h4>
         <div className="flex flex-row gap-1 justify-center">
           타입:
@@ -46,7 +46,7 @@ async function DetailPage({ params }: DetailPageProps) {
 
         <h4>기술:</h4>
         <div className="flex flex-row gap-1 justify-center flex-wrap">
-          {pokemon?.moves.map((move: any, index: number) => (
+          {pokemon.moves.map((move: any, index: number) => (
             <Badge key={index} title={move.move.korean_name} />
           ))}
         </div>

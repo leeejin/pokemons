@@ -4,9 +4,10 @@ import { NextResponse } from "next/server";
 export const TOTAL_POKEMON = 151;
 
 export const GET = async (request: Request, start: number, end: number) => {
+  const adjustedEnd = Math.min(end, TOTAL_POKEMON);
   try {
     const allPokemonPromises = Array.from(
-      { length: end - start },
+      { length: adjustedEnd - start },
       (_, index) => {
         const id = start + index + 1;
         return Promise.all([
