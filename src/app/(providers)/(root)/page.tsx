@@ -18,31 +18,35 @@ export default function HomePage() {
       return data;
     },
   });
-  if (isLoading) return <div>로딩중...</div>;
+
   return (
     <Page title="포켓몬 도감">
-      <ul className="grid grid-cols-6 gap-5">
-        {pokemons?.map((pokemon: Pokemon) => (
-          <li
-            className="border rounded p-3"
-            key={pokemon.id}
-            onClick={() => {
-              router.push(`/pokemons/${pokemon.id}`);
-            }}
-          >
-            <div className="relative aspect-square">
-              <Image
-                src={pokemon.sprites.front_default}
-                alt={pokemon.korean_name || pokemon.name}
-                fill
-                className="object-cover"
-              />
-            </div>
-            <h5>{pokemon.korean_name || pokemon.name}</h5>
-            <p>노선번호: {pokemon.id}</p>
-          </li>
-        ))}
-      </ul>
+      {isLoading ? (
+        <div>로딩중...</div>
+      ) : (
+        <ul className="grid lg:grid-cols-6 md:grid-cols-3 gap-5">
+          {pokemons?.map((pokemon: Pokemon) => (
+            <li
+              className="border rounded p-3 hover:cursor-pointer hover:border-2 transition"
+              key={pokemon.id}
+              onClick={() => {
+                router.push(`/pokemons/${pokemon.id}`);
+              }}
+            >
+              <div className="relative aspect-square">
+                <Image
+                  src={pokemon.sprites.front_default}
+                  alt={pokemon.korean_name || pokemon.name}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <h5>{pokemon.korean_name || pokemon.name}</h5>
+              <p>노선번호: {pokemon.id}</p>
+            </li>
+          ))}
+        </ul>
+      )}
     </Page>
   );
 }
