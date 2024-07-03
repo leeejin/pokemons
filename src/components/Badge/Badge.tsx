@@ -4,7 +4,7 @@ interface BadgeProps {
   title: string;
   intent?: "green" | "orange" | "default";
 }
-const BadgeVariant = cva("rounded p-0.5 text-white", {
+const BadgeVariant = cva("rounded p-0.5", {
   variants: {
     intent: {
       default: "bg-transparent text-black",
