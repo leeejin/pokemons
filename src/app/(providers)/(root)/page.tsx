@@ -4,17 +4,15 @@ import Image from "next/image";
 
 import { Pokemon } from "@/types/type";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
 import { GET, TOTAL_POKEMON } from "./api/pokemons/route";
 
+import Link from "next/link";
 import { useInView } from "react-intersection-observer";
 import SpinnerIcon from "../../../images/spinner-icon.gif";
 
 const itemsPerPage = 24;
 const totalPages = Math.ceil(TOTAL_POKEMON / itemsPerPage);
 export default function HomePage() {
-  const router = useRouter();
-
   const fetchPokemons = async ({ pageParam }: { pageParam: number }) => {
     const start = pageParam * itemsPerPage;
     const end = start + itemsPerPage;
@@ -63,20 +61,19 @@ export default function HomePage() {
             <li
               className="border rounded p-3 hover:cursor-pointer hover:border-2 transition"
               key={pokemon.id}
-              onClick={() => {
-                router.push(`/pokemons/${pokemon.id}`);
-              }}
             >
-              <div className="relative aspect-square">
-                <Image
-                  src={pokemon.sprites.front_default}
-                  alt={pokemon.korean_name || pokemon.name}
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <h5>{pokemon.korean_name || pokemon.name}</h5>
-              <p>노선번호: {pokemon.id}</p>
+              <Link href={`/pokemons/${pokemon.id}`}>
+                <div className="relative aspect-square">
+                  <Image
+                    src={pokemon.sprites.front_default}
+                    alt={pokemon.korean_name || pokemon.name}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <h5>{pokemon.korean_name || pokemon.name}</h5>
+                <p>노선번호: {pokemon.id}</p>
+              </Link>
             </li>
           ))
         )}
