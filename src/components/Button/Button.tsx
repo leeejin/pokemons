@@ -1,7 +1,12 @@
 import { VariantProps, cva } from "class-variance-authority";
+import Link from "next/link";
 import { ComponentProps } from "react";
 
-type ButtonProps = ButtonVariantProps & ComponentProps<"button">;
+type ButtonProps = ButtonVariantProps &
+  (
+    | ({ href?: undefined } & ComponentProps<"button">)
+    | ({ href: string } & ComponentProps<typeof Link>)
+  );
 type ButtonVariantProps = VariantProps<typeof buttonVariant>;
 const buttonVariant = cva(
   "rounded border font-semibold hover:brightness-90 active:brightness-75",
@@ -33,11 +38,19 @@ const buttonVariant = cva(
   }
 );
 function Button({ intent, size, outline, children, ...props }: ButtonProps) {
-  return (
-    <button className={buttonVariant({ intent, size, outline })} {...props}>
-      {children}
-    </button>
-  );
+  if (props.href) {
+    return (
+      <Link className={buttonVariant({ intent, size, outline })} {...props}>
+        {children}
+      </Link>
+    );
+  } else if (typeof props.href === "undefined") {
+    return (
+      <button className={buttonVariant({ intent, size, outline })} {...props}>
+        {children}
+      </button>
+    );
+  }
 }
 
 export default Button;
