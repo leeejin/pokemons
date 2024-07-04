@@ -10,20 +10,30 @@ import Link from "next/link";
 import { useInView } from "react-intersection-observer";
 import SpinnerIcon from "../../../images/spinner-icon.gif";
 
+interface FetchPokemonData {
+  data: Pokemon[];
+  nextPage: number;
+}
 const itemsPerPage = 24;
 const totalPages = Math.ceil(TOTAL_POKEMON / itemsPerPage);
-export default function HomePage() {
-  const fetchPokemons = async ({ pageParam }: { pageParam: number }) => {
-    const start = pageParam * itemsPerPage;
-    const end = start + itemsPerPage;
-    const response = await GET(new Request(""), start, end);
-    const data = await response.json();
 
-    return {
-      data,
-      nextPage: pageParam + 1,
-    };
+const fetchPokemons = async ({
+  pageParam,
+}: {
+  pageParam: number;
+}): Promise<FetchPokemonData> => {
+  const start = pageParam * itemsPerPage;
+  const end = start + itemsPerPage;
+  const response = await GET(new Request(""), start, end);
+  const data = await response.json();
+
+  return {
+    data,
+    nextPage: pageParam + 1,
   };
+};
+
+export default function HomePage() {
   const {
     data: pokemons,
     fetchNextPage,
