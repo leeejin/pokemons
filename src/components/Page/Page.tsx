@@ -7,7 +7,7 @@ interface PageProps {
   width?: "sm" | "md" | "full";
 }
 const pageVariant = cva(
-  "container mx-auto max-w-[1024px] px-5 py-20 bg-black text-white",
+  "container mx-auto max-w-[1024px] min-h-screen px-5 py-20 bg-black text-white",
   {
     variants: {
       width: {
