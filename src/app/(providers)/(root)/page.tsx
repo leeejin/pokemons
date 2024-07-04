@@ -67,7 +67,7 @@ export default function HomePage() {
     <Page title="포켓몬 도감">
       <ul className="grid lg:grid-cols-6 md:grid-cols-3 gap-5">
         {pokemons?.pages.flatMap((page) =>
-          page.data.map((pokemon: Pokemon) => (
+          page.data.map((pokemon) => (
             <li
               className="border rounded p-3 hover:cursor-pointer hover:border-2 transition"
               key={pokemon.id}
